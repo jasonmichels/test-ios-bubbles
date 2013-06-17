@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
+#import "BubbleView.h"
 
-@interface BubblesViewController : UIViewController
+@interface BubblesViewController : UIViewController{
+    NSMutableArray *bubblesArray;
+    CADisplayLink *gameTimer;
+    int score;
+}
+
+@property int score;
+@property (nonatomic, retain) NSMutableArray *bubblesArray;
+
+-(void)updateDisplay:(CADisplayLink*)sender;
 
 @end
