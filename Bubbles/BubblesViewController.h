@@ -8,20 +8,20 @@
 
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
-#import "BubbleView.h"
+#import "BubblesModel.h"
+
+#define FRAME_INTERVAL 100
 
 @interface BubblesViewController : UIViewController{
-    NSMutableArray *bubblesArray;
+    BubblesModel *bubbleModel;
     CADisplayLink *gameTimer;
     CADisplayLink *addBubbleTimer;
-    int missedBubbles;
-    int score;
 }
 
-@property int score;
-@property int missedBubbles;
-@property (nonatomic, retain) NSMutableArray *bubblesArray;
+@property BubblesModel *bubbleModel;
 
 -(void)updateDisplay:(CADisplayLink*)sender;
+-(void)endGame;
+-(void)addBubble;
 
 @end

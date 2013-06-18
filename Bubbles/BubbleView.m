@@ -15,17 +15,7 @@
 {
     self = [super initWithImage:[UIImage imageNamed:@"bubblet.png"]];
     if (self) {
-        // Initialization code
     }
-    return self;
-}
-
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }    
     return self;
 }
 
@@ -38,9 +28,10 @@
 }
 */
 
-//-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-//{
-//    NSLog(@"I got touched. YEAH");
-//}
+-(void)pop
+{
+    [self removeFromSuperview];
+    return;
+}
 
 @end

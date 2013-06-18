@@ -10,4 +10,6 @@
 
 @interface BubbleView : UIImageView
 
+-(void)pop;
+
 @end
