@@ -13,10 +13,13 @@
 @interface BubblesViewController : UIViewController{
     NSMutableArray *bubblesArray;
     CADisplayLink *gameTimer;
+    CADisplayLink *addBubbleTimer;
+    int missedBubbles;
     int score;
 }
 
 @property int score;
+@property int missedBubbles;
 @property (nonatomic, retain) NSMutableArray *bubblesArray;
 
 -(void)updateDisplay:(CADisplayLink*)sender;

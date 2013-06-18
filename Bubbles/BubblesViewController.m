@@ -13,7 +13,7 @@
 @end
 
 @implementation BubblesViewController
-@synthesize bubblesArray, score;
+@synthesize bubblesArray, score, missedBubbles;
 
 - (void)viewDidLoad
 {
@@ -22,34 +22,48 @@
     
     srandom(time(NULL));
     
-    bubblesArray = [[NSMutableArray alloc]init];
-    
-    [self addBubble];
-    
-    [NSTimer scheduledTimerWithTimeInterval:2.0 target:self selector:@selector(addBubble) userInfo:nil repeats:YES];
+    bubblesArray = [NSMutableArray new];
 
-    // Set up the CADisplayLink for the animation
+    // Add bubble timer
+    addBubbleTimer = [CADisplayLink displayLinkWithTarget:self selector:@selector(addBubble)];
+    addBubbleTimer.frameInterval = 100;
+    [addBubbleTimer addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+
+    // Set up the CADisplayLink for the animation & Add the display link to the current run loop
     gameTimer = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateDisplay:)];
-    // Add the display link to the current run loop
     [gameTimer addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 }
 
 -(void)updateDisplay:(CADisplayLink *)sender
 {
-    if ([bubblesArray count] == 0) {
-        NSLog(@"Won the game");
-        //        [self endGameWithMessage:@"You destroyed all of the blocks"];
+    if (missedBubbles == 10) {
+        NSLog(@"Game over");
+        [self endGameWithMessage:@"You missed 10 bubbles"];
     }
     
     //Draw more bubbles
     [self drawBubbles];
 }
 
+-(void)endGameWithMessage:(NSString*)message
+{
+    [gameTimer invalidate];
+    [addBubbleTimer invalidate];
+    [self clearScreen];
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Game Over" message:message delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    
+    [alert show];
+}
+
 - (void)addBubble
 {
     //Add another bubble
-    BubbleView *bubble = [[BubbleView alloc] initWithImage:[UIImage imageNamed:@"bubblet.png"]];
-    [bubble setFrame:CGRectMake((random() % 220), -100, 100, 100)];
+    BubbleView *bubble = [BubbleView new];
+    
+    // Get screen width minus one bubble
+    float screenWidth = (self.view.bounds.size.width - 100.0);
+    [bubble setFrame:CGRectMake((random() % (int)screenWidth), -100, 100, 100)];
     bubble.userInteractionEnabled = YES;
     
     // Add bubble to array of bubbles
@@ -58,9 +72,19 @@
     [self.view addSubview:bubble];
 }
 
+-(void)clearScreen
+{
+    for (BubbleView *bv in bubblesArray) {
+        [bv removeFromSuperview];
+    }
+    
+    bubblesArray = [NSMutableArray new];
+}
+
 -(void)drawBubbles
 {
-
+    missedBubbles = 0;
+    
     for (BubbleView *bv in bubblesArray) {
         
         // Change bubble position based on velocity
@@ -70,11 +94,12 @@
         
         bv.center = center;
         
-        if(bv.frame.origin.y >= self.view.bounds.size.height){
-            NSLog(@"You let a bubble get away");
-            [bubblesArray removeObject:bv];
+        if (bv.frame.origin.y >= self.view.bounds.size.height) {
+            missedBubbles++;
         }
     }
+    
+    NSLog(@"Missed bubbles %i", missedBubbles);
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event

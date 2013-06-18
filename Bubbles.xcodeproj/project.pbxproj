@@ -22,6 +22,7 @@
 		83DB225D1705F018008523F3 /* BubblesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83DB225C1705F018008523F3 /* BubblesViewController.m */; };
 		83DB22601705F018008523F3 /* BubblesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83DB225E1705F018008523F3 /* BubblesViewController.xib */; };
 		83DB22671705F059008523F3 /* bubblet.png in Resources */ = {isa = PBXBuildFile; fileRef = 83DB22661705F059008523F3 /* bubblet.png */; };
+		83FFF8801770AA4A00FDB74F /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 83FFF87F1770AA4A00FDB74F /* background.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		83DB225C1705F018008523F3 /* BubblesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BubblesViewController.m; sourceTree = "<group>"; };
 		83DB225F1705F018008523F3 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/BubblesViewController.xib; sourceTree = "<group>"; };
 		83DB22661705F059008523F3 /* bubblet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bubblet.png; sourceTree = "<group>"; };
+		83FFF87F1770AA4A00FDB74F /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 		83DB224A1705F018008523F3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				83FFF87F1770AA4A00FDB74F /* background.jpg */,
 				83747C68176F85F3005ACB6B /* ball.png */,
 				83DB22661705F059008523F3 /* bubblet.png */,
 				83DB224B1705F018008523F3 /* Bubbles-Info.plist */,
@@ -181,6 +184,7 @@
 				83DB22601705F018008523F3 /* BubblesViewController.xib in Resources */,
 				83DB22671705F059008523F3 /* bubblet.png in Resources */,
 				83747C69176F85F3005ACB6B /* ball.png in Resources */,
+				83FFF8801770AA4A00FDB74F /* background.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,7 +286,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bubbles/Bubbles-Prefix.pch";
 				INFOPLIST_FILE = "Bubbles/Bubbles-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -293,7 +299,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bubbles/Bubbles-Prefix.pch";
 				INFOPLIST_FILE = "Bubbles/Bubbles-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

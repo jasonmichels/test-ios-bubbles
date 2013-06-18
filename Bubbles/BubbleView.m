@@ -10,6 +10,16 @@
 
 @implementation BubbleView
 
+#pragma mark Custom initializer
+-(id)init
+{
+    self = [super initWithImage:[UIImage imageNamed:@"bubblet.png"]];
+    if (self) {
+        // Initialization code
+    }
+    return self;
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
