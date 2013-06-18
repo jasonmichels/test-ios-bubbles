@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		83747C64176F728B005ACB6B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83747C63176F728B005ACB6B /* QuartzCore.framework */; };
 		83747C67176F8510005ACB6B /* BubbleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83747C66176F8510005ACB6B /* BubbleView.m */; };
-		83747C69176F85F3005ACB6B /* ball.png in Resources */ = {isa = PBXBuildFile; fileRef = 83747C68176F85F3005ACB6B /* ball.png */; };
 		83DB22441705F018008523F3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DB22431705F018008523F3 /* UIKit.framework */; };
 		83DB22461705F018008523F3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DB22451705F018008523F3 /* Foundation.framework */; };
 		83DB22481705F018008523F3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83DB22471705F018008523F3 /* CoreGraphics.framework */; };
@@ -29,7 +28,6 @@
 		83747C63176F728B005ACB6B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		83747C65176F8510005ACB6B /* BubbleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BubbleView.h; sourceTree = "<group>"; };
 		83747C66176F8510005ACB6B /* BubbleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BubbleView.m; sourceTree = "<group>"; };
-		83747C68176F85F3005ACB6B /* ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ball.png; sourceTree = "<group>"; };
 		83DB22401705F018008523F3 /* Bubbles.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bubbles.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83DB22431705F018008523F3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		83DB22451705F018008523F3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -112,7 +110,6 @@
 			isa = PBXGroup;
 			children = (
 				83FFF87F1770AA4A00FDB74F /* background.jpg */,
-				83747C68176F85F3005ACB6B /* ball.png */,
 				83DB22661705F059008523F3 /* bubblet.png */,
 				83DB224B1705F018008523F3 /* Bubbles-Info.plist */,
 				83DB224C1705F018008523F3 /* InfoPlist.strings */,
@@ -183,7 +180,6 @@
 				83DB225A1705F018008523F3 /* Default-568h@2x.png in Resources */,
 				83DB22601705F018008523F3 /* BubblesViewController.xib in Resources */,
 				83DB22671705F059008523F3 /* bubblet.png in Resources */,
-				83747C69176F85F3005ACB6B /* ball.png in Resources */,
 				83FFF8801770AA4A00FDB74F /* background.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
