@@ -24,10 +24,10 @@
         self.score = 0;
         
         // Preset some bubble starting positions
-        self.startingYPosition = -100;
-        self.offSet = 100;
-        self.bubbleWidth = 100;
-        self.bubbleHeight = 100;
+        self.startingYPosition = -50;
+        self.offSet = 50;
+        self.bubbleWidth = 50;
+        self.bubbleHeight = 50;
         
         // Seed random time
         srandom(time(NULL));
@@ -108,6 +108,7 @@
 {
     [self.bubbles removeObject:bubble];
     [bubble pop];
+    NSLog(@"Popped a bubble");
     self.score++;
 }
 

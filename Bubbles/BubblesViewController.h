@@ -12,13 +12,11 @@
 
 #define FRAME_INTERVAL 100
 
-@interface BubblesViewController : UIViewController{
-    BubblesModel *bubbleModel;
-    CADisplayLink *gameTimer;
-    CADisplayLink *addBubbleTimer;
-}
+@interface BubblesViewController : UIViewController
 
-@property BubblesModel *bubbleModel;
+@property (strong, nonatomic)CADisplayLink *gameTimer;
+@property (strong, nonatomic)CADisplayLink *addBubbleTimer;
+@property (strong, nonatomic)BubblesModel *bubbleModel;
 
 -(void)updateDisplay:(CADisplayLink*)sender;
 -(void)endGame;

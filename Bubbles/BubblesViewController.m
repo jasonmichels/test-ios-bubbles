@@ -13,24 +13,52 @@
 @end
 
 @implementation BubblesViewController
-@synthesize bubbleModel;
+
+// Override getter for bubble model
+- (BubblesModel *)bubbleModel
+{
+    if (!_bubbleModel) {
+        _bubbleModel = [BubblesModel new];
+        _bubbleModel.screenWidth = self.view.bounds.size.width;
+        _bubbleModel.screenHeight = self.view.bounds.size.height;
+    }
+    
+    return _bubbleModel;
+}
+
+- (CADisplayLink*)addBubbleTimer
+{
+    if (!_addBubbleTimer) {
+        _addBubbleTimer = [CADisplayLink displayLinkWithTarget:self
+                                                      selector:@selector(addBubble)];
+        _addBubbleTimer.frameInterval = FRAME_INTERVAL;
+    }
+    
+    return _addBubbleTimer;
+}
+
+- (CADisplayLink *)gameTimer
+{
+    if (!_gameTimer) {
+        _gameTimer = [CADisplayLink displayLinkWithTarget:self
+                                                 selector:@selector(updateDisplay:)];
+    }
+    
+    return _gameTimer;
+}
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    bubbleModel = [BubblesModel new];
-    bubbleModel.screenWidth = self.view.bounds.size.width;
-    bubbleModel.screenHeight = self.view.bounds.size.height;
 
     // Add bubble timer
-    addBubbleTimer = [CADisplayLink displayLinkWithTarget:self selector:@selector(addBubble)];
-    addBubbleTimer.frameInterval = FRAME_INTERVAL;
-    [addBubbleTimer addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [self.addBubbleTimer addToRunLoop:[NSRunLoop currentRunLoop]
+                              forMode:NSDefaultRunLoopMode];
 
     // Set up the CADisplayLink for the animation & Add the display link to the current run loop
-    gameTimer = [CADisplayLink displayLinkWithTarget:self selector:@selector(updateDisplay:)];
-    [gameTimer addToRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [self.gameTimer addToRunLoop:[NSRunLoop currentRunLoop]
+                         forMode:NSDefaultRunLoopMode];
 }
 
 /**
@@ -42,7 +70,7 @@
 //        [self endGame];
 //    } else {
         //Draw more bubbles
-        [bubbleModel drawBubbles];
+        [self.bubbleModel drawBubbles];
 //    }
 }
 
@@ -51,11 +79,11 @@
  */
 -(void)endGame
 {
-    [gameTimer invalidate];
-    [addBubbleTimer invalidate];
-    [bubbleModel clearBubbles];
+    [self.gameTimer invalidate];
+    [self.addBubbleTimer invalidate];
+    [self.bubbleModel clearBubbles];
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Game Over" message:bubbleModel.endGameMessage delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Game Over" message:self.bubbleModel.endGameMessage delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
     
     [alert show];
 }
@@ -66,7 +94,7 @@
  */
 - (void)addBubble
 {    
-    [self.view addSubview:bubbleModel.addBubble];
+    [self.view addSubview:[self.bubbleModel addBubble]];
 }
 
 /**
@@ -82,7 +110,7 @@
         BubbleView *bv = (BubbleView*)t.view;
         
         //user has scored a point now remove the bubble
-        [bubbleModel popBubble:bv];
+        [self.bubbleModel popBubble:bv];
 
     }
 }
@@ -94,8 +122,8 @@
 }
 -(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
-    bubbleModel.screenWidth = self.view.bounds.size.width;
-    bubbleModel.screenHeight = self.view.bounds.size.height;
+    self.bubbleModel.screenWidth = self.view.bounds.size.width;
+    self.bubbleModel.screenHeight = self.view.bounds.size.height;
 }
 
 @end

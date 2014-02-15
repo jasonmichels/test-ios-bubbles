@@ -66,6 +66,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1C3ED3EB18AFCB1700B8D0FA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				83CE7D5C1770C66100A76BDE /* BubblesModel.h */,
+				83CE7D5D1770C66100A76BDE /* BubblesModel.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		83DB22371705F018008523F3 = {
 			isa = PBXGroup;
 			children = (
@@ -97,13 +106,10 @@
 		83DB22491705F018008523F3 /* Bubbles */ = {
 			isa = PBXGroup;
 			children = (
-				83DB22521705F018008523F3 /* BubblesAppDelegate.h */,
-				83DB22531705F018008523F3 /* BubblesAppDelegate.m */,
 				83DB225B1705F018008523F3 /* BubblesViewController.h */,
 				83DB225C1705F018008523F3 /* BubblesViewController.m */,
 				83DB225E1705F018008523F3 /* BubblesViewController.xib */,
-				83CE7D5C1770C66100A76BDE /* BubblesModel.h */,
-				83CE7D5D1770C66100A76BDE /* BubblesModel.m */,
+				1C3ED3EB18AFCB1700B8D0FA /* Model */,
 				83747C65176F8510005ACB6B /* BubbleView.h */,
 				83747C66176F8510005ACB6B /* BubbleView.m */,
 				83DB224A1705F018008523F3 /* Supporting Files */,
@@ -114,6 +120,8 @@
 		83DB224A1705F018008523F3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				83DB22521705F018008523F3 /* BubblesAppDelegate.h */,
+				83DB22531705F018008523F3 /* BubblesAppDelegate.m */,
 				83FFF87F1770AA4A00FDB74F /* background.jpg */,
 				83DB22661705F059008523F3 /* bubblet.png */,
 				83DB224B1705F018008523F3 /* Bubbles-Info.plist */,
@@ -288,7 +296,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bubbles/Bubbles-Prefix.pch";
 				INFOPLIST_FILE = "Bubbles/Bubbles-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -301,7 +309,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Bubbles/Bubbles-Prefix.pch";
 				INFOPLIST_FILE = "Bubbles/Bubbles-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
