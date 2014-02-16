@@ -31,6 +31,22 @@
     return self;
 }
 
+-(NSInteger)droppedBubbles
+{
+    if (!_droppedBubbles) {
+        _droppedBubbles = 0;
+    }
+    return _droppedBubbles;
+}
+
+-(NSInteger)totalMissedBubbles
+{
+    if (!_totalMissedBubbles) {
+        _totalMissedBubbles = 0;
+    }
+    return _totalMissedBubbles;
+}
+
 #pragma Getter and setter for starting position
 -(NSInteger)startingYPosition
 {
@@ -117,7 +133,7 @@
  */
 -(void)drawBubbles
 {
-    self.missedBubbles = 0;
+    self.droppedBubbles = 0;
     
     for (BubbleView *bubble in self.bubbles) {
         
@@ -137,19 +153,19 @@
         bubble.center = center;
         
         if (bubble.frame.origin.y >= self.screenHeight) {
-            self.missedBubbles++;
-            //This is a bug. Need to make second array of objects to remove
-            // http://stackoverflow.com/questions/8834031/objective-c-nsmutablearray-mutated-while-being-enumerated
-//            [self.bubbles removeObject:bubble];
+            self.droppedBubbles++;
         }
     }
     
-    NSLog(@"Total missed bubbles: %d", self.missedBubbles);
+    self.totalMissedBubbles = self.missedBubbles + self.droppedBubbles;
+    NSLog(@"Missed bubbles: %d", self.missedBubbles);
+    NSLog(@"Dropped bubbles: %d", self.droppedBubbles);
+    NSLog(@"Total missed bubbles: %d", self.totalMissedBubbles);
     
-//    if (self.missedBubbles == GAME_OVER_MISSED_BUBBLES) {
-//        self.gameOver = YES;
-//        self.endGameMessage = @"Sorry you missed too many bubbles";
-//    }
+    if (self.totalMissedBubbles == GAME_OVER_MISSED_BUBBLES) {
+        self.gameOver = YES;
+        self.endGameMessage = @"Sorry you missed too many bubbles";
+    }
     
     return;
     

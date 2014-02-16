@@ -14,7 +14,6 @@
 #define MOVE_FASTER_INTERVAL 2
 #define LOWEST_INTERVAL 15
 #define CHANGE_BACKGROUND_COLOR 20
-#define ALLOWED_MISSES 25
 
 @interface BubblesViewController : UIViewController
 

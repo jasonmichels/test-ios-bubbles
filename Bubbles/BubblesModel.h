@@ -21,10 +21,14 @@
 @property (strong, nonatomic)NSString *endGameMessage;
 @property (nonatomic)NSUInteger gameOver;
 @property (nonatomic)NSUInteger score;
-@property (nonatomic)NSUInteger missedBubbles;
 @property float screenWidth;
 @property float screenHeight;
 @property (strong, nonatomic) NSMutableArray *bubbles;
+// Bubbles user missed with finger
+@property (nonatomic)NSUInteger missedBubbles;
+// Bubbles dropped off bottom of screen
+@property (nonatomic)NSInteger droppedBubbles;
+@property (nonatomic)NSInteger totalMissedBubbles;
 
 
 -(BubbleView*)addBubble;
