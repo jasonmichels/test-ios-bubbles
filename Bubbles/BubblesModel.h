@@ -9,36 +9,22 @@
 #import <Foundation/Foundation.h>
 #import "BubbleView.h"
 
-@interface BubblesModel : NSObject
-{
-    NSMutableArray *bubbles;
-    
-    int startingYPosition;
-    int offSet;
-    int bubbleWidth;
-    int bubbleHeight;
-    
-    int missedBubbles;
-    int score;
-    
-    float screenWidth;
-    float screenHeight;
-    
-    int gameOver;
-    NSString *endGameMessage;
-}
+#define BUBBLE_SIZE 100
+#define GAME_OVER_MISSED_BUBBLES 25
 
-@property int startingYPosition;
-@property int offSet;
-@property int bubbleWidth;
-@property int bubbleHeight;
-@property NSString *endGameMessage;
-@property int gameOver;
-@property int score;
-@property int missedBubbles;
+@interface BubblesModel : NSObject
+
+@property NSInteger startingYPosition;
+@property (nonatomic)NSUInteger offSet;
+@property (nonatomic)NSUInteger bubbleWidth;
+@property (nonatomic)NSUInteger bubbleHeight;
+@property (strong, nonatomic)NSString *endGameMessage;
+@property (nonatomic)NSUInteger gameOver;
+@property (nonatomic)NSUInteger score;
+@property (nonatomic)NSUInteger missedBubbles;
 @property float screenWidth;
 @property float screenHeight;
-@property (nonatomic, retain) NSMutableArray *bubbles;
+@property (strong, nonatomic) NSMutableArray *bubbles;
 
 
 -(BubbleView*)addBubble;

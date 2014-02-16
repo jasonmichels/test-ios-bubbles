@@ -8,10 +8,15 @@
 
 #import "BubblesModel.h"
 
-@implementation BubblesModel
-@synthesize bubbles, score, missedBubbles, screenWidth, screenHeight, gameOver, endGameMessage;
-@synthesize startingYPosition, offSet, bubbleHeight, bubbleWidth;
+@interface BubblesModel()
 
+
+
+@end
+
+@implementation BubblesModel
+
+@synthesize startingYPosition = _startingYPosition;
 /**
  Initialize some variables
  */
@@ -20,22 +25,68 @@
     self = [super init];
     
     if (self) {
-        // Init score to zero
-        self.score = 0;
-        
-        // Preset some bubble starting positions
-        self.startingYPosition = -50;
-        self.offSet = 50;
-        self.bubbleWidth = 50;
-        self.bubbleHeight = 50;
-        
         // Seed random time
         srandom(time(NULL));
-        
-        // Create bubbles array
-        self.bubbles = [NSMutableArray new];
     }
     return self;
+}
+
+#pragma Getter and setter for starting position
+-(NSInteger)startingYPosition
+{
+    if (!_startingYPosition) {
+        _startingYPosition = -100;
+    }
+    return _startingYPosition;
+}
+
+-(void)setStartingYPosition:(NSInteger)startingYPosition
+{
+    _startingYPosition = startingYPosition;
+}
+
+#pragma Initialize score
+-(NSUInteger)score
+{
+    if (!_score) {
+        _score = 0;
+    }
+    return _score;
+}
+
+#pragma Initialize bubble variables
+
+-(NSUInteger)offSet
+{
+    if (!_offSet) {
+        _offSet = BUBBLE_SIZE;
+    }
+    return _offSet;
+}
+
+-(NSUInteger)bubbleWidth
+{
+    if (!_bubbleWidth) {
+        _bubbleWidth = BUBBLE_SIZE;
+    }
+    return _bubbleWidth;
+}
+
+-(NSUInteger)bubbleHeight
+{
+    if (!_bubbleHeight) {
+        _bubbleHeight = BUBBLE_SIZE;
+    }
+    return _bubbleHeight;
+}
+
+#pragma Initialize bubbles array
+-(NSMutableArray *)bubbles
+{
+    if (!_bubbles) {
+        _bubbles = [NSMutableArray new];
+    }
+    return _bubbles;
 }
 
 /**
@@ -80,20 +131,25 @@
         }
         
         // Make gravity drop the bubble down lower
-        center.y = center.y + 1;
+        center.y = center.y + 2;
         
         // Set the center of the bubble
         bubble.center = center;
         
         if (bubble.frame.origin.y >= self.screenHeight) {
             self.missedBubbles++;
+            //This is a bug. Need to make second array of objects to remove
+            // http://stackoverflow.com/questions/8834031/objective-c-nsmutablearray-mutated-while-being-enumerated
+//            [self.bubbles removeObject:bubble];
         }
     }
     
-    if (self.missedBubbles == 10) {
-        self.gameOver = YES;
-        self.endGameMessage = @"Sorry you missed 10 bubbles";
-    }
+    NSLog(@"Total missed bubbles: %d", self.missedBubbles);
+    
+//    if (self.missedBubbles == GAME_OVER_MISSED_BUBBLES) {
+//        self.gameOver = YES;
+//        self.endGameMessage = @"Sorry you missed too many bubbles";
+//    }
     
     return;
     
@@ -108,7 +164,6 @@
 {
     [self.bubbles removeObject:bubble];
     [bubble pop];
-    NSLog(@"Popped a bubble");
     self.score++;
 }
 

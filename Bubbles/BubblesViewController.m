@@ -10,9 +10,18 @@
 
 @interface BubblesViewController ()
 
+@property (nonatomic)NSUInteger timePassed;
+@property (nonatomic)NSUInteger changeBackgroundTimer;
+@property (strong, nonatomic)NSArray *backgroundColors; // of UIColor
+@property (nonatomic)NSUInteger missedBubbles;
+
 @end
 
 @implementation BubblesViewController
+
+@synthesize timePassed = _timePassed;
+@synthesize changeBackgroundTimer = _changeBackgroundTimer;
+@synthesize missedBubbles = _missedBubbles;
 
 // Override getter for bubble model
 - (BubblesModel *)bubbleModel
@@ -47,10 +56,12 @@
     return _gameTimer;
 }
 
-
+#pragma ViewDidLoad
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self.view setBackgroundColor:[UIColor greenColor]];
 
     // Add bubble timer
     [self.addBubbleTimer addToRunLoop:[NSRunLoop currentRunLoop]
@@ -61,22 +72,21 @@
                          forMode:NSDefaultRunLoopMode];
 }
 
+#pragma UpdateDisplay
 /**
  Update the display every frame and check if game ended
  */
 -(void)updateDisplay:(CADisplayLink *)sender
 {
-//    if (bubbleModel.gameOver) {
-//        [self endGame];
-//    } else {
+    if (self.bubbleModel.gameOver) {
+        [self endGame];
+    } else {
         //Draw more bubbles
         [self.bubbleModel drawBubbles];
-//    }
+    }
 }
 
-/**
- End the game
- */
+#pragma End thegame
 -(void)endGame
 {
     [self.gameTimer invalidate];
@@ -88,15 +98,73 @@
     [alert show];
 }
 
+#pragma mark Set time to move faster
+-(NSUInteger)timePassed
+{
+    if (!_timePassed) {
+        _timePassed = 0;
+    }
+    return _timePassed;
+}
+
+-(void)setTimePassed:(NSUInteger)timePassed
+{
+    if (timePassed) {
+        _timePassed = timePassed;
+    }
+    
+    self.changeBackgroundTimer++;
+    
+    if (_timePassed == MOVE_FASTER_INTERVAL && self.addBubbleTimer.frameInterval >= LOWEST_INTERVAL)
+    {
+        NSLog(@"Time passed is 5, so lets get faster");
+        NSLog(@"The frameinterval is: %d", self.addBubbleTimer.frameInterval);
+        self.addBubbleTimer.frameInterval--;
+        _timePassed = 0;
+    }
+}
+
+#pragma Change Background
+-(NSUInteger)changeBackgroundTimer
+{
+    if (!_changeBackgroundTimer) {
+        _changeBackgroundTimer = 0;
+    }
+    return _changeBackgroundTimer;
+}
+
+-(void)setChangeBackgroundTimer:(NSUInteger)changeBackgroundTimer
+{
+    if (changeBackgroundTimer) {
+        _changeBackgroundTimer = changeBackgroundTimer;
+    }
+    
+    if (_changeBackgroundTimer == CHANGE_BACKGROUND_COLOR) {
+        unsigned index = arc4random() % self.backgroundColors.count;
+        [self.view setBackgroundColor:self.backgroundColors[index]];
+        _changeBackgroundTimer = 0;
+    }
+}
+
+-(NSArray *)backgroundColors
+{
+    if (!_backgroundColors) {
+        _backgroundColors = @[[UIColor redColor], [UIColor blueColor], [UIColor greenColor], [UIColor brownColor], [UIColor yellowColor]];
+    }
+    return _backgroundColors;
+}
+
 #pragma mark Add Bubble
 /**
  Get a bubble from the model and add to the view
  */
 - (void)addBubble
-{    
+{
+    self.timePassed++;
     [self.view addSubview:[self.bubbleModel addBubble]];
 }
 
+#pragma Detect touches to pop bubble
 /**
  Get user touches to see if they popped any bubbles
  */
@@ -111,15 +179,31 @@
         
         //user has scored a point now remove the bubble
         [self.bubbleModel popBubble:bv];
-
+    } else {
+        self.missedBubbles++;
     }
 }
 
-- (void)didReceiveMemoryWarning
+#pragma Missed bubbles section
+-(NSUInteger)missedBubbles
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    if (!_missedBubbles) {
+        _missedBubbles = 0;
+    }
+    return _missedBubbles;
 }
+
+-(void)setMissedBubbles:(NSUInteger)missedBubbles
+{
+    _missedBubbles = missedBubbles;
+    
+    if (_missedBubbles == ALLOWED_MISSES) {
+        NSLog(@"User has missed too many bubbles");
+    }
+}
+
+
+#pragma Screen rotating
 -(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     self.bubbleModel.screenWidth = self.view.bounds.size.width;
