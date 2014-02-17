@@ -14,6 +14,7 @@
 @property (nonatomic)NSUInteger changeBackgroundTimer;
 @property (strong, nonatomic)NSArray *backgroundColors; // of UIColor
 @property (weak, nonatomic) IBOutlet UILabel *missedBubbles;
+@property (weak, nonatomic) IBOutlet UILabel *poppedBubbles;
 @property (weak, nonatomic) IBOutlet UIButton *startGameBtn;
 
 @end
@@ -29,7 +30,7 @@
  */
 -(void)updateDisplay:(CADisplayLink *)sender
 {
-    [self updateMissedBubblesText];
+    [self updateBubblesText];
     
     if (self.bubbleModel.gameOver) {
         [self endGame];
@@ -67,7 +68,13 @@
     self.gameTimer = Nil;
     self.addBubbleTimer = Nil;
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Game Over" message:self.bubbleModel.endGameMessage delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"GAME OVER" message:self.bubbleModel.endGameMessage delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+    
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"GAME OVER"
+                                                   message:self.bubbleModel.endGameMessage
+                                                  delegate:self
+                                         cancelButtonTitle:@"Try Again"
+                                         otherButtonTitles:nil, nil];
     
     [alert show];
     
@@ -99,11 +106,10 @@
         
         //user has scored a point now remove the bubble
         [self.bubbleModel popBubble:bv];
-    } else {
-        self.bubbleModel.missedBubbles++;
     }
 }
 
+#pragma mark Getter for bubble model
 // Override getter for bubble model
 - (BubblesModel *)bubbleModel
 {
@@ -116,6 +122,7 @@
     return _bubbleModel;
 }
 
+#pragma mark Getter for add bubble time
 - (CADisplayLink*)addBubbleTimer
 {
     if (!_addBubbleTimer) {
@@ -193,11 +200,14 @@
     return _backgroundColors;
 }
 
-#pragma mark Update missed bubbles text
--(void)updateMissedBubblesText
+#pragma mark Update bubbles text
+-(void)updateBubblesText
 {
     [self.missedBubbles setText:[NSString
-                                 stringWithFormat:@"%d", self.bubbleModel.totalMissedBubbles]];
+                                 stringWithFormat:@"%d", self.bubbleModel.missedBubbles]];
+    
+    [self.poppedBubbles setText:[NSString
+                                 stringWithFormat:@"%d", self.bubbleModel.score]];
 }
 
 #pragma mark Screen rotating

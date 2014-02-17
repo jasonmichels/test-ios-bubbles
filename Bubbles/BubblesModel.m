@@ -31,27 +31,28 @@
     return self;
 }
 
--(NSInteger)droppedBubbles
+-(NSString *)endGameMessage
 {
-    if (!_droppedBubbles) {
-        _droppedBubbles = 0;
+    if (!_endGameMessage) {
+        _endGameMessage = @"Sorry :( you missed too many bubbles";
     }
-    return _droppedBubbles;
+    return _endGameMessage;
 }
 
--(NSInteger)totalMissedBubbles
+#pragma mark Missed bubbles getter
+-(NSInteger)missedBubbles
 {
-    if (!_totalMissedBubbles) {
-        _totalMissedBubbles = 0;
+    if (!_missedBubbles) {
+        _missedBubbles = 0;
     }
-    return _totalMissedBubbles;
+    return _missedBubbles;
 }
 
 #pragma Getter and setter for starting position
 -(NSInteger)startingYPosition
 {
     if (!_startingYPosition) {
-        _startingYPosition = -100;
+        _startingYPosition = -BUBBLE_SIZE;
     }
     return _startingYPosition;
 }
@@ -96,6 +97,25 @@
     return _bubbleHeight;
 }
 
+#pragma Get gravity
+-(NSInteger)gravity
+{
+    if (!_gravity) {
+        _gravity = GRAVITY;
+    }
+    
+    if (self.score >= SECOND_LEVEL) {
+        _gravity = GRAVITY_SECOND_LEVEL;
+    }
+    
+    if (self.score >= THIRD_LEVEL) {
+        _gravity = GRAVITY_THIRD_LEVEL;
+    }
+    
+    return _gravity;
+}
+
+
 #pragma Initialize bubbles array
 -(NSMutableArray *)bubbles
 {
@@ -105,6 +125,7 @@
     return _bubbles;
 }
 
+#pragma mark Bubbles actions
 /**
  Create new bubble and add to the array
  */
@@ -133,7 +154,7 @@
  */
 -(void)drawBubbles
 {
-    self.droppedBubbles = 0;
+    self.missedBubbles = 0;
     
     for (BubbleView *bubble in self.bubbles) {
         
@@ -143,35 +164,27 @@
         // @todo Need to take into account the device rotated
         if (bubble.frame.origin.x >= self.screenWidth) {
             // Then the image is off the screen after a rotation
-            center.x = self.screenWidth - 100;
+            center.x = self.screenWidth - BUBBLE_SIZE;
         }
         
         // Make gravity drop the bubble down lower
-        center.y = center.y + 2;
+        center.y = center.y + self.gravity;
         
         // Set the center of the bubble
         bubble.center = center;
         
         if (bubble.frame.origin.y >= self.screenHeight) {
-            self.droppedBubbles++;
+            self.missedBubbles++;
         }
     }
     
-    self.totalMissedBubbles = self.missedBubbles + self.droppedBubbles;
-    NSLog(@"Missed bubbles: %d", self.missedBubbles);
-    NSLog(@"Dropped bubbles: %d", self.droppedBubbles);
-    NSLog(@"Total missed bubbles: %d", self.totalMissedBubbles);
-    
-    if (self.totalMissedBubbles == GAME_OVER_MISSED_BUBBLES) {
+    if (self.missedBubbles == GAME_OVER_MISSED_BUBBLES) {
         self.gameOver = YES;
-        self.endGameMessage = @"Sorry you missed too many bubbles";
     }
     
     return;
     
 }
-
-#pragma mark Clear Bubbles Methods
 
 /**
  Pop bubble

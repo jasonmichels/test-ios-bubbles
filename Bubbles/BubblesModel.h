@@ -10,7 +10,12 @@
 #import "BubbleView.h"
 
 #define BUBBLE_SIZE 100
-#define GAME_OVER_MISSED_BUBBLES 25
+#define GAME_OVER_MISSED_BUBBLES 2
+#define GRAVITY 2
+#define GRAVITY_SECOND_LEVEL 3
+#define GRAVITY_THIRD_LEVEL 4
+#define SECOND_LEVEL 30
+#define THIRD_LEVEL 50
 
 @interface BubblesModel : NSObject
 
@@ -24,11 +29,9 @@
 @property float screenWidth;
 @property float screenHeight;
 @property (strong, nonatomic) NSMutableArray *bubbles;
-// Bubbles user missed with finger
-@property (nonatomic)NSUInteger missedBubbles;
 // Bubbles dropped off bottom of screen
-@property (nonatomic)NSInteger droppedBubbles;
-@property (nonatomic)NSInteger totalMissedBubbles;
+@property (nonatomic)NSInteger missedBubbles;
+@property (nonatomic)NSInteger gravity;
 
 
 -(BubbleView*)addBubble;
