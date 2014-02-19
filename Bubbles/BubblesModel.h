@@ -12,10 +12,10 @@
 #define BUBBLE_SIZE 100
 #define GAME_OVER_MISSED_BUBBLES 2
 #define GRAVITY 2
-#define GRAVITY_SECOND_LEVEL 3
-#define GRAVITY_THIRD_LEVEL 4
-#define SECOND_LEVEL 30
-#define THIRD_LEVEL 50
+#define GRAVITY_SECOND_LEVEL 3.5
+#define GRAVITY_THIRD_LEVEL 5
+#define SECOND_LEVEL 20
+#define THIRD_LEVEL 40
 
 @interface BubblesModel : NSObject
 

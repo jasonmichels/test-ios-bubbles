@@ -12,7 +12,7 @@
 
 #define FRAME_INTERVAL 50
 #define MOVE_FASTER_INTERVAL 2
-#define LOWEST_INTERVAL 15
+#define LOWEST_INTERVAL 13
 #define CHANGE_BACKGROUND_COLOR 20
 
 @interface BubblesViewController : UIViewController

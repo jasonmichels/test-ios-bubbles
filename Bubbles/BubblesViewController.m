@@ -68,8 +68,6 @@
     self.gameTimer = Nil;
     self.addBubbleTimer = Nil;
     
-//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"GAME OVER" message:self.bubbleModel.endGameMessage delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
-    
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"GAME OVER"
                                                    message:self.bubbleModel.endGameMessage
                                                   delegate:self
